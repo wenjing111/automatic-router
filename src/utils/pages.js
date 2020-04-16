@@ -2,7 +2,7 @@
     支持路由懒加载
   使用注意点: 
     1. 页面中的 `name`属性必填,这将会成为router路由对象的name和path的组成部分
-    2. 在routeConfig.js中,维护meta时,key必须为路由对象的name属性的值
+    2. 在routeConfig.js中,维护meta redirect等时,key必须为路由对象的name属性的值
     3. 扩展到了三级路由 
 */
 
