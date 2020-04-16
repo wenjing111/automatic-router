@@ -4,6 +4,7 @@
     user
     <router-link to="/About">跳转到About</router-link>
     <router-link to="/Wjl/Wjl1">跳转到Wjl1</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
