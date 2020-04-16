@@ -67,6 +67,7 @@ for (let key in pages) {
   }
 }
 
+// 向二级路由组装children
 for (let key in threeLevelRoute) {
   let fatherName = threeLevelRoute[key].father
   if (!twoLevelRoute[fatherName].children) {
@@ -74,7 +75,7 @@ for (let key in threeLevelRoute) {
   }
   twoLevelRoute[fatherName].children.push(threeLevelRoute[key])
 }
-
+// 向一级路由组装children
 for (let key in twoLevelRoute) {
   let fatherName = twoLevelRoute[key].father
   if (!oneLevelRoute[fatherName].children) {
@@ -86,6 +87,17 @@ for (let key in twoLevelRoute) {
 for (let key in oneLevelRoute) {
   routeArr.push(oneLevelRoute[key])
 }
-console.log(routeArr)
+
+// 根据meta配置的sort进行排序  根路由必须配置sort
+routeArr.sort((a, b) => a.meta.sort - b.meta.sort)
+
+// 去除无值的key
+routeArr.forEach((ele) => {
+  for (let key in ele) {
+    if (!ele[key]) {
+      delete ele[key]
+    }
+  }
+})
 
 export default routeArr
