@@ -2,11 +2,11 @@
     支持路由懒加载
   使用注意点: 
     1. 页面中的 `name`属性必填,这将会成为router路由对象的name和path的组成部分
-    2. 在routeMeta.js中,维护meta时,key必须为路由对象的name属性的值
+    2. 在routeConfig.js中,维护meta时,key必须为路由对象的name属性的值
     3. 扩展到了三级路由 
 */
 
-import metaData from '@/utils/routeMeta'
+import routeConfig from '@/utils/routeConfig'
 let files = require.context('../views', true, /\.vue$/)
 const pages = {}
 files.keys().forEach((key) => {
@@ -29,8 +29,9 @@ for (let key in pages) {
       path: `/${pages[key].name}`,
       component: () => import(`@/views/${pages[key].filePath}`),
     }
-    if (metaData[pages[key].name]) {
-      obj.meta = metaData[pages[key].name]
+    if (routeConfig[pages[key].name]) {
+      obj.meta = routeConfig[pages[key].name].meta
+      obj.redirect = routeConfig[pages[key].name].redirect
     }
     oneLevelRoute[nameArr[0]] = obj
   } else if (nameArr.length == 3) {
@@ -40,8 +41,9 @@ for (let key in pages) {
       component: () => import(`@/views/${pages[key].filePath}`),
       father: nameArr[0],
     }
-    if (metaData[pages[key].name]) {
-      obj.meta = metaData[pages[key].name]
+    if (routeConfig[pages[key].name]) {
+      obj.meta = routeConfig[pages[key].name].meta
+      obj.redirect = routeConfig[pages[key].name].redirect
     }
     if (!twoLevelRoute[nameArr[1]]) {
       twoLevelRoute[nameArr[1]] = []
@@ -54,8 +56,9 @@ for (let key in pages) {
       component: () => import(`@/views/${pages[key].filePath}`),
       father: nameArr[1],
     }
-    if (metaData[pages[key].name]) {
-      obj.meta = metaData[pages[key].name]
+    if (routeConfig[pages[key].name]) {
+      obj.meta = routeConfig[pages[key].name].meta
+      obj.redirect = routeConfig[pages[key].name].redirect
     }
     if (!threeLevelRoute[nameArr[2]]) {
       threeLevelRoute[nameArr[2]] = []
